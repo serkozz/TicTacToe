@@ -8,13 +8,14 @@ namespace MyTicTacToe
         {
             string line = "---+---+---";
             string verticalSeparator = "|";
+            Console.Clear();
             Console.WriteLine($" { gameField[0] } { verticalSeparator } { gameField[1] } { verticalSeparator } { gameField[2] } ");
             Console.WriteLine(line);
             Console.WriteLine($" { gameField[3] } { verticalSeparator } { gameField[4] } { verticalSeparator } { gameField[5] } ");
             Console.WriteLine(line);
             Console.WriteLine($" { gameField[6] } { verticalSeparator } { gameField[7] } { verticalSeparator } { gameField[8] } ");
         }
-    
+
         public bool DetermineWinner(char empty, char[] gameField, int turn) //Метод ввода данных и определения победителя
         {
             bool victory = (empty != gameField[0]) && (gameField[0] == gameField[1]) && (gameField[1] == gameField[2]) || //Проверяем, появился ли победитель после хода игрока
@@ -36,6 +37,42 @@ namespace MyTicTacToe
                 Console.WriteLine("Ничья");
             }
             return victory;
-        } 
+        }
+
+        public bool WhoMakesFirstTurn()
+        {
+            string temp;
+            bool tempFlag = true;
+            bool isPlayerFirstTurn = true;
+
+            do
+            {
+                try
+                {
+                    temp = Console.ReadLine();
+
+                    if ((temp == "0"))
+                    {
+                        isPlayerFirstTurn = true;
+                        tempFlag = false;
+                    }
+
+                    else if ((temp == "1"))
+                    {
+                        isPlayerFirstTurn = false;
+                        tempFlag = false;
+                    }
+                    else
+                        throw new FormatException();
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Ошибка. Введите номер от 0 до 1");
+                }
+            }
+            while (tempFlag);
+
+            return isPlayerFirstTurn;
+        }
     }
 }

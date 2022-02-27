@@ -14,9 +14,9 @@ namespace MyTicTacToe
             char playerSymbol = ' ';
 
             if (isPlayerFirstTurn == true)
-            playerSymbol = X;
+                playerSymbol = X;
             if (isPlayerFirstTurn == false)
-            playerSymbol = O;
+                playerSymbol = O;
 
             do
             {
@@ -34,7 +34,7 @@ namespace MyTicTacToe
                             playerTurnFlag = false;
                         }
                         else
-                        Console.WriteLine("Ошибка. Выбранная клетка занята");
+                            Console.WriteLine("Ошибка. Выбранная клетка занята");
                     }
                 }
                 catch (FormatException)
@@ -43,8 +43,6 @@ namespace MyTicTacToe
                 }
             }
             while (playerTurnFlag);
-
-            DisplayGameField(gameField);
         }
     }
 }

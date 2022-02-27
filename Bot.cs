@@ -23,7 +23,6 @@ namespace MyTicTacToe
             char X = 'X';
             char O = 'O';
             int gameFieldNumber;
-            string botInput = " ";
             bool botTurnFlag = true;
             char botSymbol = ' ';
             Random random = new Random();
@@ -35,14 +34,14 @@ namespace MyTicTacToe
             gameFieldNumber = availableFieldsArray[random.Next(0, availableFieldsArray.Length)];
 
             if (isPlayerFirstTurn == true)
-            botSymbol = O;
+                botSymbol = O;
             if (isPlayerFirstTurn == false)
-            botSymbol = X;
-            
+                botSymbol = X;
+
             do
             {
                 Console.WriteLine("Текущий ход: " + turn);
-                Console.Write("Бот ходит...");
+                Console.WriteLine("Бот ходит...");
                 if (gameField[gameFieldNumber] == empty)
                 {
                     gameField[gameFieldNumber] = botSymbol;
@@ -50,8 +49,6 @@ namespace MyTicTacToe
                 }
             }
             while (botTurnFlag);
-
-            DisplayGameField(gameField);
         }
     }
 }
