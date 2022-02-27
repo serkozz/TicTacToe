@@ -61,9 +61,21 @@ namespace MyTicTacToe
 
             while (gameOver == false)
             {
-                turn += 1;
-                player.PlayerTurn(empty, field, isPlayerFirstTurn, turn);
-                gameOver = gameField.DetermineWinner(empty, field, turn);
+                if (isPlayerFirstTurn)
+                {
+                    player.PlayerTurn(empty, field, isPlayerFirstTurn, turn);
+                    bot.BotTurn(empty, field, isPlayerFirstTurn, turn);
+                    turn += 1;
+                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                }
+
+                if (!isPlayerFirstTurn)
+                {
+                    bot.BotTurn(empty, field, isPlayerFirstTurn, turn);
+                    player.PlayerTurn(empty, field, isPlayerFirstTurn, turn);
+                    turn += 1;
+                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                }
             }
             
             Console.ReadKey();
