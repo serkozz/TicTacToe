@@ -8,47 +8,51 @@ namespace MyTicTacToe
         {
             Console.Clear();
 
-            GameField gameField = new GameField();
-            Player player = new Player();
-            Bot bot = new Bot();
-
             char[] field = new char[9];
             char empty = ' ';
             int turn = 0;
             bool gameOver = false;
 
+            GameMode gameMode = new GameMode(field, gameOver, turn, empty);
+            GameField gameField = new GameField();
+            Player player = new Player();
+            Player firstPlayer = new Player();
+            Player secondPlayer = new Player();
+            Bot bot = new Bot();
+
+            string gameModeInput;
+            int gameModeChanger;
+            bool gameModeFlag = true;
+
             Array.Fill(field, empty);
 
-            Console.WriteLine("Кто будет ходить первым? 0 - Игрок, 1 - Бот");
-            bool isPlayerFirstTurn = gameField.WhoMakesFirstTurn();
-            Console.WriteLine("Игрок ходит первым: " + isPlayerFirstTurn);
+            Console.WriteLine("Выберите режим игры: 0 - Игрок vs Бот, 1 - Игрок vs Игрок");
 
-            gameField.DisplayGameField(field);
-
-            while (gameOver == false)
+            do
             {
-                if (isPlayerFirstTurn)
+                try
                 {
-                    turn++;
-                    player.PlayerTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
-                    if (gameOver)
-                        break;
-                    bot.BotTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameField.DisplayGameField(field);
-                }
+                    gameModeInput = Console.ReadLine();
+                    gameModeChanger = Convert.ToInt32(gameModeInput);
 
-                if (!isPlayerFirstTurn)
+                    if (gameModeChanger == 0)
+                    {
+                        gameModeFlag = false;
+                        gameMode.PlayerVsAi();
+                    }
+                    if (gameModeChanger == 1)
+                    {
+                        gameModeFlag = false;
+                        gameMode.PlayerVsPlayer(firstPlayer, secondPlayer);
+                    }
+                }
+                catch (FormatException)
                 {
-                    turn++;
-                    bot.BotTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
-                    if (gameOver)
-                        break;
-                    player.PlayerTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameField.DisplayGameField(field);
+                    Console.WriteLine("Ошибка, введите число от 0 до 1");
                 }
             }
+            while (gameModeFlag);
+
             Console.WriteLine("Нажмите любую клавишу для выхода...");
             Console.ReadKey();
         }
