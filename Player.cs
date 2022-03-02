@@ -4,7 +4,7 @@ namespace MyTicTacToe
 {
     public class Player : GameField
     {
-        public void PlayerTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
+        public void PlayerVsAiTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
         {
             char X = 'X';
             char O = 'O';
@@ -12,7 +12,6 @@ namespace MyTicTacToe
             string playerInput = " ";
             bool playerTurnFlag = true;
             char playerSymbol = ' ';
-
             if (isPlayerFirstTurn == true)
                 playerSymbol = X;
             if (isPlayerFirstTurn == false)
@@ -43,6 +42,11 @@ namespace MyTicTacToe
                 }
             }
             while (playerTurnFlag);
+        }
+    
+        public void PlayerVsPlayerTurn(char empty, char[] gameField, bool isFirstPlayerFirstTurn, int turn)
+        {
+            
         }
     }
 }

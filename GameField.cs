@@ -26,7 +26,7 @@ namespace MyTicTacToe
             (empty != gameField[2]) && (gameField[2] == gameField[5]) && (gameField[5] == gameField[8]) ||
             (empty != gameField[0]) && (gameField[0] == gameField[4]) && (gameField[4] == gameField[8]) ||
             (empty != gameField[2]) && (gameField[2] == gameField[4]) && (gameField[4] == gameField[6]);
-            Console.Clear();
+            
             DisplayGameField(gameField);
 
             if (victory)
