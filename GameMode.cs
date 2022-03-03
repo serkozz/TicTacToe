@@ -51,14 +51,16 @@ namespace MyTicTacToe
                     if (gameOver)
                         break;
                     turn++;
-                    bot.BotRandomTurn(empty, field, isPlayerFirstTurn, turn);
+                    //bot.BotRandomTurn(empty, field, isPlayerFirstTurn, turn);
+                    bot.BotAlgorithmicTurn(empty, field, isPlayerFirstTurn, turn);
                     gameField.DisplayGameField(field);
                 }
 
                 if (!isPlayerFirstTurn)
                 {
                     turn++;
-                    bot.BotRandomTurn(empty, field, isPlayerFirstTurn, turn);
+                    //bot.BotRandomTurn(empty, field, isPlayerFirstTurn, turn);
+                    bot.BotAlgorithmicTurn(empty, field, isPlayerFirstTurn, turn);
                     gameOver = gameField.DetermineWinner(empty, field, isPlayerFirstTurn, turn);
                     if (gameOver)
                         break;

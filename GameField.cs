@@ -33,7 +33,7 @@ namespace MyTicTacToe
                 Console.WriteLine("Победил игрок");
             else if(victory && turn % 2 != 0 && !isPlayerFirstTurn)
                 Console.WriteLine("Победил бот");
-            else if (turn == 8)
+            else if (turn == 9)
             {
                 victory = true;
                 Console.WriteLine("Ничья");

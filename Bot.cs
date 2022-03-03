@@ -5,6 +5,8 @@ namespace MyTicTacToe
 {
     public class Bot : GameField
     {
+        bool isPlayerFirstTurn;
+        char botSymbol;
 
         public List<int> AvailableFieldsIndex(char[] gameField, char empty)
         {
@@ -18,21 +20,97 @@ namespace MyTicTacToe
             return availableFieldsArrayIndex;
         }
 
-        public List<int> PlayerWinNextTurnFields(char[] gameField)
+        public char BotSymbol(bool isPlayerFirstTurn)
+        {
+            const char X = 'X';
+            const char O = 'O';
+
+            if (isPlayerFirstTurn)
+                botSymbol = O;
+            if (!isPlayerFirstTurn)
+                botSymbol = X;
+
+            return botSymbol;
+        }
+
+        public List<int> PlayerWinNextTurnFields(char[] gameField, bool isPlayerFirstTurn)
         {
             List<int> playerWinNextTurnFields = new List<int>();
+            playerWinNextTurnFields.Clear();
 
-            
+            char botSymbol = BotSymbol(isPlayerFirstTurn);
+            char playerSymbol = ' ';
+
+            if (botSymbol == 'X')
+                playerSymbol = 'O';
+            else if (botSymbol == 'O')
+                playerSymbol = 'X';
+
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[1]))//Проверяем, следующий ход игрока на возможность победы
+                playerWinNextTurnFields.Add(2);
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[2]))
+                playerWinNextTurnFields.Add(0);
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[2])) // Первая строка
+                playerWinNextTurnFields.Add(1);
+
+
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[4]))
+                playerWinNextTurnFields.Add(5);
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[5]))
+                playerWinNextTurnFields.Add(3);
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[5])) // Вторая строка
+                playerWinNextTurnFields.Add(4);
+
+            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[7]))
+                playerWinNextTurnFields.Add(8);
+            if ((playerSymbol == gameField[7]) && (gameField[7] == gameField[8]))
+                playerWinNextTurnFields.Add(6);
+            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[8])) // Третья строка
+                playerWinNextTurnFields.Add(7);
+
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[3]))
+                playerWinNextTurnFields.Add(6);
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[6]))
+                playerWinNextTurnFields.Add(0);
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[6])) // Первый столбец
+                playerWinNextTurnFields.Add(3);
+
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[4]))
+                playerWinNextTurnFields.Add(7);
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[7]))
+                playerWinNextTurnFields.Add(1);
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[7])) // Второй столбец
+                playerWinNextTurnFields.Add(4);
+
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[5]))
+                playerWinNextTurnFields.Add(8);
+            if ((playerSymbol == gameField[5]) && (gameField[5] == gameField[8]))
+                playerWinNextTurnFields.Add(2);
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[8])) // Третий столбец
+                playerWinNextTurnFields.Add(5);
+
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[4]))
+                playerWinNextTurnFields.Add(8);
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[8]))
+                playerWinNextTurnFields.Add(0);
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[8])) // \ диагональ
+                playerWinNextTurnFields.Add(4);
+
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[4]))
+                playerWinNextTurnFields.Add(6);
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[6]))
+                playerWinNextTurnFields.Add(2);
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[6])) // / диагональ
+                playerWinNextTurnFields.Add(4);
+
             return playerWinNextTurnFields;
         }
 
         public void BotRandomTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
         {
-            char X = 'X';
-            char O = 'O';
             int gameFieldNumber;
             bool botTurnFlag = true;
-            char botSymbol = ' ';
+
             Random random = new Random();
 
             List<int> availableFieldsList = new List<int>();
@@ -40,11 +118,6 @@ namespace MyTicTacToe
             int[] availableFieldsArray = availableFieldsList.ToArray();
 
             gameFieldNumber = availableFieldsArray[random.Next(0, availableFieldsArray.Length)];
-
-            if (isPlayerFirstTurn == true)
-                botSymbol = O;
-            if (isPlayerFirstTurn == false)
-                botSymbol = X;
 
             do
             {
@@ -62,7 +135,45 @@ namespace MyTicTacToe
         //TODO: Realize playing with algorithm but not just random moves
         public void BotAlgorithmicTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
         {
-            
+            int gameFieldNumber = 0;
+            bool botTurnFlag = true;
+            Random random = new Random();
+
+            List<int> availableFieldsList = new List<int>();
+            availableFieldsList = PlayerWinNextTurnFields(gameField, isPlayerFirstTurn);
+            //int[] availableFieldsArray = availableFieldsList.ToArray();
+
+            //gameFieldNumber = availableFieldsArray[random.Next(0, availableFieldsArray.Length
+            if(availableFieldsList.Count != 0)
+                gameFieldNumber = availableFieldsList[0];
+
+
+            do
+            {
+                Console.WriteLine("Текущий ход: " + turn);
+                Console.WriteLine("Бот ходит...");
+
+                if (availableFieldsList.Count != 0)
+                {
+                    if (gameField[gameFieldNumber] == empty)
+                    {
+                        gameField[gameFieldNumber] = botSymbol;
+                        botTurnFlag = false;
+                    }
+                    else
+                    {
+                        BotRandomTurn(empty, gameField, isPlayerFirstTurn, turn);
+                        botTurnFlag = false;
+                    }
+
+                }
+                else
+                {
+                    BotRandomTurn(empty, gameField, isPlayerFirstTurn, turn);
+                    botTurnFlag = false;
+                }
+            }
+            while (botTurnFlag);
         }
     }
 }
