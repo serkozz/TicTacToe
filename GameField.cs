@@ -16,7 +16,7 @@ namespace MyTicTacToe
             Console.WriteLine($" { gameField[6] } { verticalSeparator } { gameField[7] } { verticalSeparator } { gameField[8] } ");
         }
 
-        public bool DetermineWinner(char empty, char[] gameField, int turn) //Метод ввода данных и определения победителя
+        public bool DetermineWinner(char empty, char[] gameField, bool isPlayerFirstTurn, int turn) //Метод ввода данных и определения победителя
         {
             bool victory = (empty != gameField[0]) && (gameField[0] == gameField[1]) && (gameField[1] == gameField[2]) || //Проверяем, появился ли победитель после хода игрока
             (empty != gameField[3]) && (gameField[3] == gameField[4]) && (gameField[4] == gameField[5]) ||
@@ -29,8 +29,10 @@ namespace MyTicTacToe
             
             DisplayGameField(gameField);
 
-            if (victory)
+            if (victory && turn % 2 != 0 && isPlayerFirstTurn)
                 Console.WriteLine("Победил игрок");
+            else if(victory && turn % 2 != 0 && !isPlayerFirstTurn)
+                Console.WriteLine("Победил бот");
             else if (turn == 8)
             {
                 victory = true;

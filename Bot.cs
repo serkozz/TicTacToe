@@ -18,6 +18,14 @@ namespace MyTicTacToe
             return availableFieldsArrayIndex;
         }
 
+        public List<int> PlayerWinNextTurnFields(char[] gameField)
+        {
+            List<int> playerWinNextTurnFields = new List<int>();
+
+            
+            return playerWinNextTurnFields;
+        }
+
         public void BotRandomTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
         {
             char X = 'X';
@@ -54,7 +62,7 @@ namespace MyTicTacToe
         //TODO: Realize playing with algorithm but not just random moves
         public void BotAlgorithmicTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
         {
-
+            
         }
     }
 }

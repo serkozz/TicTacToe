@@ -47,7 +47,7 @@ namespace MyTicTacToe
                 {
                     turn++;
                     player.PlayerVsAiTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                    gameOver = gameField.DetermineWinner(empty, field, isPlayerFirstTurn, turn);
                     if (gameOver)
                         break;
                     turn++;
@@ -59,7 +59,7 @@ namespace MyTicTacToe
                 {
                     turn++;
                     bot.BotRandomTurn(empty, field, isPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                    gameOver = gameField.DetermineWinner(empty, field, isPlayerFirstTurn, turn);
                     if (gameOver)
                         break;
                     turn++;
@@ -83,7 +83,7 @@ namespace MyTicTacToe
                 {
                     turn++;
                     firstPlayer.PlayerVsPlayerTurn(empty, field, isFirstPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                    gameOver = gameField.DetermineWinner(empty, field, isFirstPlayerFirstTurn, turn);
                     if (gameOver)
                         break;
                     turn++;
@@ -95,7 +95,7 @@ namespace MyTicTacToe
                 {
                     turn++;
                     bot.BotRandomTurn(empty, field, isFirstPlayerFirstTurn, turn);
-                    gameOver = gameField.DetermineWinner(empty, field, turn);
+                    gameOver = gameField.DetermineWinner(empty, field, isFirstPlayerFirstTurn, turn);
                     if (gameOver)
                         break;
                     turn++;
