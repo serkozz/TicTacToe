@@ -203,6 +203,19 @@ namespace MyTicTacToe
       return diagonalFieldsAvailable;
     }
 
+    public bool CentralField(char[] gameField, char empty, bool isPlayerFirstTurn, out bool isCentralFieldAvailable)
+    {
+      int centralFieldIndex = 4;
+      isCentralFieldAvailable = false;
+
+      if (empty == gameField[centralFieldIndex])
+      {
+        isCentralFieldAvailable = true;
+        return true;
+      }
+      else
+        return false;
+    }
     public void BotRandomTurn(char empty, char[] gameField, bool isPlayerFirstTurn, int turn)
     {
       int gameFieldNumber;
@@ -237,6 +250,7 @@ namespace MyTicTacToe
       bool isBotWinNextTurn = false;
       bool isPlayerWinNextTurn = false;
       bool isDiagonalFieldsAvailable = false;
+      bool isCentralFieldAvailable = false;
 
       Random random = new Random();
       List<int> availableFieldsList = new List<int>();
@@ -249,12 +263,16 @@ namespace MyTicTacToe
 
         if (!isPlayerWinNextTurn)
         {
-          availableFieldsList = DiagonalFields(gameField, empty, isPlayerFirstTurn, out isDiagonalFieldsAvailable);
-
-          if (!isDiagonalFieldsAvailable)
+          if (CentralField(gameField, empty, isPlayerFirstTurn, out isCentralFieldAvailable))
+            availableFieldsList.Add(4);
+          if (!isCentralFieldAvailable)
           {
-            BotRandomTurn(empty, gameField, isPlayerFirstTurn, turn);
-            return;
+            availableFieldsList = DiagonalFields(gameField, empty, isPlayerFirstTurn, out isDiagonalFieldsAvailable);
+            if (!isDiagonalFieldsAvailable)
+            {
+              BotRandomTurn(empty, gameField, isPlayerFirstTurn, turn);
+              return;
+            }
           }
         }
       }
