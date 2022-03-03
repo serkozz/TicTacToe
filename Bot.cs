@@ -7,6 +7,7 @@ namespace MyTicTacToe
     {
         bool isPlayerFirstTurn;
         char botSymbol;
+        List<int> playerWinNextTurnFields = new List<int>();
 
         public List<int> AvailableFieldsIndex(char[] gameField, char empty)
         {
@@ -33,9 +34,8 @@ namespace MyTicTacToe
             return botSymbol;
         }
 
-        public List<int> PlayerWinNextTurnFields(char[] gameField, bool isPlayerFirstTurn)
+        public List<int> PlayerWinNextTurnFields(char[] gameField, char empty, bool isPlayerFirstTurn)
         {
-            List<int> playerWinNextTurnFields = new List<int>();
             playerWinNextTurnFields.Clear();
 
             char botSymbol = BotSymbol(isPlayerFirstTurn);
@@ -46,61 +46,61 @@ namespace MyTicTacToe
             else if (botSymbol == 'O')
                 playerSymbol = 'X';
 
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[1]))//Проверяем, следующий ход игрока на возможность победы
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[1]) && (gameField[2] == empty))//Проверяем, следующий ход игрока на возможность победы
                 playerWinNextTurnFields.Add(2);
-            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[2]))
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[2]) && (gameField[0] == empty))
                 playerWinNextTurnFields.Add(0);
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[2])) // Первая строка
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[2]) && (gameField[1] == empty)) // Первая строка
                 playerWinNextTurnFields.Add(1);
 
 
-            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[4]))
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[4]) && (gameField[5] == empty))
                 playerWinNextTurnFields.Add(5);
-            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[5]))
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[5]) && (gameField[3] == empty))
                 playerWinNextTurnFields.Add(3);
-            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[5])) // Вторая строка
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[5]) && (gameField[4] == empty)) // Вторая строка
                 playerWinNextTurnFields.Add(4);
 
-            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[7]))
+            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[7]) && (gameField[8] == empty))
                 playerWinNextTurnFields.Add(8);
-            if ((playerSymbol == gameField[7]) && (gameField[7] == gameField[8]))
+            if ((playerSymbol == gameField[7]) && (gameField[7] == gameField[8]) && (gameField[6] == empty))
                 playerWinNextTurnFields.Add(6);
-            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[8])) // Третья строка
+            if ((playerSymbol == gameField[6]) && (gameField[6] == gameField[8]) && (gameField[7] == empty)) // Третья строка
                 playerWinNextTurnFields.Add(7);
 
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[3]))
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[3]) && (gameField[6] == empty))
                 playerWinNextTurnFields.Add(6);
-            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[6]))
+            if ((playerSymbol == gameField[3]) && (gameField[3] == gameField[6]) && (gameField[0] == empty))
                 playerWinNextTurnFields.Add(0);
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[6])) // Первый столбец
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[6]) && (gameField[3] == empty)) // Первый столбец
                 playerWinNextTurnFields.Add(3);
 
-            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[4]))
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[4]) && (gameField[7] == empty))
                 playerWinNextTurnFields.Add(7);
-            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[7]))
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[7]) && (gameField[1] == empty))
                 playerWinNextTurnFields.Add(1);
-            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[7])) // Второй столбец
+            if ((playerSymbol == gameField[1]) && (gameField[1] == gameField[7]) && (gameField[4] == empty)) // Второй столбец
                 playerWinNextTurnFields.Add(4);
 
-            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[5]))
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[5]) && (gameField[8] == empty))
                 playerWinNextTurnFields.Add(8);
-            if ((playerSymbol == gameField[5]) && (gameField[5] == gameField[8]))
+            if ((playerSymbol == gameField[5]) && (gameField[5] == gameField[8]) && (gameField[2] == empty))
                 playerWinNextTurnFields.Add(2);
-            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[8])) // Третий столбец
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[8]) && (gameField[5] == empty)) // Третий столбец
                 playerWinNextTurnFields.Add(5);
 
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[4]))
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[4]) && (gameField[8] == empty))
                 playerWinNextTurnFields.Add(8);
-            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[8]))
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[8]) && (gameField[0] == empty))
                 playerWinNextTurnFields.Add(0);
-            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[8])) // \ диагональ
+            if ((playerSymbol == gameField[0]) && (gameField[0] == gameField[8]) && (gameField[4] == empty)) // \ диагональ
                 playerWinNextTurnFields.Add(4);
 
-            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[4]))
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[4]) && (gameField[6] == empty))
                 playerWinNextTurnFields.Add(6);
-            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[6]))
+            if ((playerSymbol == gameField[4]) && (gameField[4] == gameField[6]) && (gameField[2] == empty))
                 playerWinNextTurnFields.Add(2);
-            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[6])) // / диагональ
+            if ((playerSymbol == gameField[2]) && (gameField[2] == gameField[6]) && (gameField[4] == empty)) // / диагональ
                 playerWinNextTurnFields.Add(4);
 
             return playerWinNextTurnFields;
@@ -140,7 +140,7 @@ namespace MyTicTacToe
             Random random = new Random();
 
             List<int> availableFieldsList = new List<int>();
-            availableFieldsList = PlayerWinNextTurnFields(gameField, isPlayerFirstTurn);
+            availableFieldsList = PlayerWinNextTurnFields(gameField, empty, isPlayerFirstTurn);
             //int[] availableFieldsArray = availableFieldsList.ToArray();
 
             //gameFieldNumber = availableFieldsArray[random.Next(0, availableFieldsArray.Length
